@@ -10,4 +10,3 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-//just to test delete branch commit.
