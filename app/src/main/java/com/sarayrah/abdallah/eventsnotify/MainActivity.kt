@@ -10,4 +10,3 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-//test commit to test pull request comparison in the remote repository.
