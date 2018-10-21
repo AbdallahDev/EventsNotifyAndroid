@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">نشاطات المجلس</string>
+    <string name="default_notification_channel_id">CHANNEL_ID</string>
 </resources>
