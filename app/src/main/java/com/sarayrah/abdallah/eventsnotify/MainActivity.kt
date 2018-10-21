@@ -17,19 +17,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //here i check for the googlePlayService availability, coz the can't work without it.
+        googlePlayServicesAvailable()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //here i check for the googlePlayService availability, coz the can't work without it.
+        googlePlayServicesAvailable()
+    }
+
+    //this fun to check for the googlePlayService availability, coz the can't work without it.
+    private fun googlePlayServicesAvailable() {
         GoogleApiAvailability.getInstance()
                 .makeGooglePlayServicesAvailable(this)
                 .addOnSuccessListener {
-                    Log.d("fcm", "makeGooglePlayServicesAvailable().onSuccess()")
-
-                    // GPS available; do something useful
-                }.addOnFailureListener(this) { e ->
-                    Log.d("fcm", "makeGooglePlayServicesAvailable().onFailure()")
-                    e.printStackTrace()
-
-                    // can't proceed without GPS; quit
-
-                    this@MainActivity.finish() // this causes a crash
+                    Toast.makeText(this, "تم تفعيل خدمة متجر جوجل", Toast.LENGTH_SHORT)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "للأسف لم تم تفعيل خدمة متجر جوجل", Toast.LENGTH_SHORT)
                 }
     }
 }
