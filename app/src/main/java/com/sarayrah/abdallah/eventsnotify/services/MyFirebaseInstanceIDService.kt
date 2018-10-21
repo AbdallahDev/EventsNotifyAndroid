@@ -9,6 +9,6 @@ class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
         super.onTokenRefresh()
 
         val refreshedToken = FirebaseInstanceId.getInstance().token
-        Log.d("fcm_token", refreshedToken)
+        Log.d("fcm", refreshedToken)
     }
 }
