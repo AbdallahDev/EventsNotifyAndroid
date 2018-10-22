@@ -32,11 +32,5 @@ class MainActivity : AppCompatActivity() {
     private fun googlePlayServicesAvailable() {
         GoogleApiAvailability.getInstance()
                 .makeGooglePlayServicesAvailable(this)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "تم تفعيل خدمة متجر جوجل", Toast.LENGTH_SHORT)
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "للأسف لم تم تفعيل خدمة متجر جوجل", Toast.LENGTH_SHORT)
-                }
     }
 }
