@@ -21,12 +21,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //use log fun
+        logPrint()
+
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
     }
 
     override fun onResume() {
         super.onResume()
+
+        //use log fun
+        logPrint()
 
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
