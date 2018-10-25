@@ -33,4 +33,9 @@ class MainActivity : AppCompatActivity() {
         GoogleApiAvailability.getInstance()
                 .makeGooglePlayServicesAvailable(this)
     }
+
+    //this fun to pint device instanceID in the LOG
+    private fun logPrint() {
+        Log.wtf("fcm", " ${FirebaseInstanceId.getInstance().token}")
+    }
 }
