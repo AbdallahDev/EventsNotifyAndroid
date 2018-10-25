@@ -12,19 +12,20 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_title" />
+        android:text="@string/tv_title"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/tv_body" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/tv_date" />
 
     <TextView
