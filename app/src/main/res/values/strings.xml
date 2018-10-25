@@ -3,12 +3,12 @@
     <string name="default_notification_channel_id">EVENTSNOTIFY_CHANNEL_ID</string>
     <string name="channel_description">هذه قناة تنبيهات الاحداث للتطبيق</string>
     <string name="channel_name">الاحداث</string>
-    <string name="tv_title_start">اللجنة:</string>
+    <string name="tv_title_start">اللجنة: </string>
     <string name="tv_title">العنوان</string>
-    <string name="tv_body_start">الموضوع:</string>
+    <string name="tv_body_start">الموضوع: </string>
     <string name="tv_body">الموضوع</string>
-    <string name="tv_date_start">التاريخ:</string>
+    <string name="tv_date_start">التاريخ: </string>
     <string name="tv_date">التاريخ</string>
-    <string name="tv_time_start">الوقت:</string>
+    <string name="tv_time_start">الوقت: </string>
     <string name="tv_time">الوقت</string>
 </resources>
