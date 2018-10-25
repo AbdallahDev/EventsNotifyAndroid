@@ -21,8 +21,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra("title", p0?.data?.get("title"))
             putExtra("body", p0?.data?.get("body"))
-            putExtra("body", p0?.data?.get("date"))
-            putExtra("body", p0?.data?.get("time"))
+            putExtra("date", p0?.data?.get("date"))
+            putExtra("time", p0?.data?.get("time"))
         }
         val notifyPendingIntent = PendingIntent.getActivity(
                 this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
