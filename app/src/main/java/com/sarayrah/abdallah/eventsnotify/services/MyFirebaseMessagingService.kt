@@ -16,9 +16,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage?) {
         super.onMessageReceived(p0)
 
-        Log.wtf("fcm", "" + p0?.data?.get("title"))
-        Log.wtf("fcm", "" + p0?.data?.get("body"))
-
         // Create an explicit intent for an Activity in your app
         val notifyIntent = Intent(this, EventDetails::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
