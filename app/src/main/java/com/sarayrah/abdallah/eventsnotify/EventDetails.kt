@@ -11,8 +11,8 @@ class EventDetails : AppCompatActivity() {
         setContentView(R.layout.activity_event_details)
 
         tv_title.text = intent.getStringExtra("title")
-        tv_title.text = intent.getStringExtra("body")
-        tv_title.text = intent.getStringExtra("date")
-        tv_title.text = intent.getStringExtra("time")
+        tv_body.text = intent.getStringExtra("body")
+        tv_date.text = intent.getStringExtra("date")
+        tv_time.text = intent.getStringExtra("time")
     }
 }
