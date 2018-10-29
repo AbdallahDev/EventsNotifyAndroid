@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
 
+        //call a eventsList array function
+        fillEventsList()
+
         //recyclerView code
         recyclerView_eventDetails.apply {
             setHasFixedSize(true)
