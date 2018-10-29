@@ -76,4 +76,13 @@ class MainActivity : AppCompatActivity() {
     private fun logPrint() {
         Log.wtf("fcm", " ${FirebaseInstanceId.getInstance().token}")
     }
+
+    //function to fill eventsList Array with data for the adapter
+    fun fillEventsList() {
+        eventsList.add(EventsDataSet("title1"))
+        eventsList.add(EventsDataSet("title2"))
+        eventsList.add(EventsDataSet("title3"))
+        eventsList.add(EventsDataSet("title4"))
+        eventsList.add(EventsDataSet("title5"))
+    }
 }
