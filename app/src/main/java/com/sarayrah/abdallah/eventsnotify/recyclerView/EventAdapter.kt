@@ -23,7 +23,6 @@ class EventAdapter(private val context: Context, private val eventsList: ArrayLi
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(eventsList[position].eventTitle)
-
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
