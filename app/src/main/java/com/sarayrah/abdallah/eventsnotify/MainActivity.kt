@@ -8,17 +8,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Adapter
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
-import com.sarayrah.abdallah.eventsnotify.recyclerView.EventAdapter
+import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
-    private val eventsList = ArrayList<EventsDataSet>()
+    val eventsList = ArrayList<EventsDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +28,8 @@ class MainActivity : AppCompatActivity() {
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
 
-        //call a eventsList array function
-        fillEventsList()
-
-        //recyclerView code
-        recyclerView_eventDetails.apply {
-            setHasFixedSize(true)
-            LinearLayoutManager(this@MainActivity)
-            adapter = EventAdapter(this@MainActivity, eventsList)
-        }
+        //call recyclerView inflation
+        recyclerViewInflate()
     }
 
     override fun onResume() {
@@ -82,12 +73,20 @@ class MainActivity : AppCompatActivity() {
         Log.wtf("fcm", " ${FirebaseInstanceId.getInstance().token}")
     }
 
-    //function to fill eventsList Array with data for the adapter
-    fun fillEventsList() {
+    //recyclerView inflation code
+    private fun recyclerViewInflate() {
+
+        //call list fill fun
+        listFill()
+
+        recyclerView.hasFixedSize()
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = EventsAdapter(eventsList)
+    }
+
+    //fill list for the recyclerView
+    private fun listFill() {
         eventsList.add(EventsDataSet("title1"))
         eventsList.add(EventsDataSet("title2"))
-        eventsList.add(EventsDataSet("title3"))
-        eventsList.add(EventsDataSet("title4"))
-        eventsList.add(EventsDataSet("title5"))
     }
 }
