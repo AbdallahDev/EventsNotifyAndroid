@@ -79,9 +79,9 @@ class MainActivity : AppCompatActivity() {
         //call list fill fun
         listFill()
 
-        recyclerView.hasFixedSize()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = EventsAdapter(eventsList)
+        rv_events.hasFixedSize()
+        rv_events.layoutManager = LinearLayoutManager(this)
+        rv_events.adapter = EventsAdapter(eventsList)
     }
 
     //fill list for the recyclerView
