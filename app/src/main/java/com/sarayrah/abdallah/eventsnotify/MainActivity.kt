@@ -11,13 +11,10 @@ import android.util.Log
 import android.widget.Adapter
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
-import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-
-    private val eventsList = ArrayList<EventsDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
