@@ -11,4 +11,7 @@
     <string name="tv_date">التاريخ</string>
     <string name="tv_time_start">الوقت: </string>
     <string name="tv_time">الوقت</string>
+
+    //events details row for the recyclerView
+    <string name="row_tv_title">العنوان</string>
 </resources>

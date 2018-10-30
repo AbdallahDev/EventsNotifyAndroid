@@ -6,12 +6,17 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
-
+import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
+import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val eventsList = ArrayList<EventsDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
+
+        //call recyclerView inflation
+        recyclerViewInflate()
     }
 
     override fun onResume() {
@@ -63,5 +71,22 @@ class MainActivity : AppCompatActivity() {
     //this fun to pint device instanceID in the LOG
     private fun logPrint() {
         Log.wtf("fcm", " ${FirebaseInstanceId.getInstance().token}")
+    }
+
+    //recyclerView inflation code
+    private fun recyclerViewInflate() {
+
+        //call list fill fun
+        listFill()
+
+        recyclerView.hasFixedSize()
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = EventsAdapter(eventsList)
+    }
+
+    //fill list for the recyclerView
+    private fun listFill() {
+        eventsList.add(EventsDataSet("title1"))
+        eventsList.add(EventsDataSet("title2"))
     }
 }
