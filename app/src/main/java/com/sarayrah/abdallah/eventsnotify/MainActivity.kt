@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun recyclerViewInflate() {
 
         //call list fill fun
-        listFill()
+        eventsListFill()
 
         rv_events.hasFixedSize()
         rv_events.layoutManager = LinearLayoutManager(this)
@@ -85,9 +85,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     //fill list for the recyclerView
-    private fun listFill() {
+    private fun eventsListFill() {
         eventsList.add(EventsDataSet("title1"))
         eventsList.add(EventsDataSet("title2"))
-        eventsList.add(EventsDataSet("title2"))
+        eventsList.add(EventsDataSet("title2e2"))
     }
 }
