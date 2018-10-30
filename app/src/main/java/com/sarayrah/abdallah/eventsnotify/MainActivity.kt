@@ -88,5 +88,6 @@ class MainActivity : AppCompatActivity() {
     private fun listFill() {
         eventsList.add(EventsDataSet("title1"))
         eventsList.add(EventsDataSet("title2"))
+        eventsList.add(EventsDataSet("title2"))
     }
 }
