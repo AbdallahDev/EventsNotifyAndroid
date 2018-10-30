@@ -11,7 +11,6 @@ import android.util.Log
 import android.widget.Adapter
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
-import com.sarayrah.abdallah.eventsnotify.recyclerView.EventAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView_eventDetails.apply {
             setHasFixedSize(true)
             LinearLayoutManager(this@MainActivity)
-            adapter = EventAdapter(this@MainActivity, eventsList)
         }
     }
 
