@@ -17,4 +17,8 @@
     <string name="row_tv_title">العنوان</string>
     <string name="row_tv_subject_precedent">الموضوع:</string>
     <string name="row_tv_subject">الموضوع</string>
+    <string name="row_tv_date_precedent">التاريخ:</string>
+    <string name="row_tv_date">التاريخ</string>
+    <string name="row_tv_time_precedent">الوقت:</string>
+    <string name="row_tv_time">الوقت</string>
 </resources>
