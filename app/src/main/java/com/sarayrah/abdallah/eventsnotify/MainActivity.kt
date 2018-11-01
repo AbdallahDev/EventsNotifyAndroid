@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
+import com.sarayrah.abdallah.eventsnotify.data.Data
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
 import kotlinx.android.synthetic.main.activity_main.*
@@ -94,8 +95,8 @@ class MainActivity : AppCompatActivity() {
     private fun eventsListFill() {
         //volley code
         val queue = Volley.newRequestQueue(this)
-        val url = "http://10.153.70.145/apps/android/MyApps/eventsNotify/android/apis/getEvents.php"
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null,
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.rootUrl
+                , null,
                 Response.Listener { response ->
                     for (i in 0 until response.length()) {
                         eventsList.add(EventsDataSet(response.getJSONObject(i)
