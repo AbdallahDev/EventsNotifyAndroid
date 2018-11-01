@@ -21,4 +21,5 @@
     <string name="row_tv_date">التاريخ</string>
     <string name="row_tv_time_precedent">الوقت:</string>
     <string name="row_tv_time">الوقت</string>
+    <string name="row_tv_line_separator">---------------------------------------------------------------------</string>
 </resources>
