@@ -8,11 +8,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -86,8 +92,17 @@ class MainActivity : AppCompatActivity() {
 
     //fill list for the recyclerView
     private fun eventsListFill() {
-        eventsList.add(EventsDataSet("title1"))
-        eventsList.add(EventsDataSet("title2"))
-        eventsList.add(EventsDataSet("title2e2"))
+        //volley code
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://10.153.70.145/apps/android/MyApps/eventsNotify/android/apis/getEvents.php"
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null,
+                Response.Listener { response ->
+                    for (i in 0 until response.length()) {
+                        eventsList.add(EventsDataSet(response.getJSONObject(i)
+                                .getString("subject")))
+                    }
+                }, Response.ErrorListener {
+        })
+        queue.add(jsonArrayRequest)
     }
 }
