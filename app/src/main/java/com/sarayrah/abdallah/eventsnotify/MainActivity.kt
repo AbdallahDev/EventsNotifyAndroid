@@ -100,9 +100,9 @@ class MainActivity : AppCompatActivity() {
                 Response.Listener { response ->
                     for (i in 0 until response.length()) {
                         eventsList.add(EventsDataSet(
-                                response.getJSONObject(i).getString("title"),
+                                response.getJSONObject(i).getString("committee_name"),
                                 response.getJSONObject(i).getString("subject"),
-                                response.getJSONObject(i).getString("date"),
+                                response.getJSONObject(i).getString("event_date"),
                                 response.getJSONObject(i).getString("time")))
                     }
                 }, Response.ErrorListener {
