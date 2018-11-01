@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
 
-        //call recyclerView inflation
-        recyclerViewInflate()
+        //call the function that view the data
+        eventsViewing()
     }
 
     override fun onResume() {
@@ -81,23 +81,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     //recyclerView inflation code
-    private fun recyclerViewInflate() {
-
-        //call list fill fun
-        eventsListFill()
-
+    private fun recyclerViewInflation() {
         rv_events.hasFixedSize()
         rv_events.layoutManager = LinearLayoutManager(this)
         rv_events.adapter = EventsAdapter(eventsList)
     }
 
     //fill list for the recyclerView
-    private fun eventsListFill() {
+    private fun eventsViewing() {
         //volley code
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getEventsUrl
                 , null,
                 Response.Listener { response ->
+                    Log.wtf("fcm", "response: " + response.toString())
                     for (i in 0 until response.length()) {
                         eventsList.add(EventsDataSet(
                                 response.getJSONObject(i).getString("committee_name"),
@@ -105,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                                 response.getJSONObject(i).getString("event_date"),
                                 response.getJSONObject(i).getString("time")))
                     }
+                    recyclerViewInflation()
                 }, Response.ErrorListener {
         })
         queue.add(jsonArrayRequest)
