@@ -92,7 +92,7 @@
             android:text="@string/row_tv_time" />
     </LinearLayout>
 
-    <!-- event separator line -->
+    <!-- event line separator -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
