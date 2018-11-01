@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.sarayrah.abdallah.eventsnotify.R
 import kotlinx.android.synthetic.main.event_details_row.view.*
 
-class EventsAdapter(val list: ArrayList<EventsDataSet>) :
+class EventsAdapter(private val list: ArrayList<EventsDataSet>) :
         RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.event_details_row, p0,
@@ -22,6 +22,9 @@ class EventsAdapter(val list: ArrayList<EventsDataSet>) :
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.itemView.tv_title.text = list[p1].eventTitle
+        p0.itemView.tv_subject.text = list[p1].eventSubject
+        p0.itemView.tv_date.text = list[p1].eventDate
+        p0.itemView.tv_time.text = list[p1].eventTime
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

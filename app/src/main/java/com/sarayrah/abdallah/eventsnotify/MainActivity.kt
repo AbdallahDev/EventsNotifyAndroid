@@ -95,12 +95,15 @@ class MainActivity : AppCompatActivity() {
     private fun eventsListFill() {
         //volley code
         val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.rootUrl
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getEventsUrl
                 , null,
                 Response.Listener { response ->
                     for (i in 0 until response.length()) {
-                        eventsList.add(EventsDataSet(response.getJSONObject(i)
-                                .getString("subject")))
+                        eventsList.add(EventsDataSet(
+                                response.getJSONObject(i).getString("committee_name"),
+                                response.getJSONObject(i).getString("subject"),
+                                response.getJSONObject(i).getString("event_date"),
+                                response.getJSONObject(i).getString("time")))
                     }
                 }, Response.ErrorListener {
         })

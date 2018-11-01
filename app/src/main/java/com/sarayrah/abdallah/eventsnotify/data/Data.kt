@@ -11,5 +11,7 @@ class Data {
         var rootUrl = "http://${Data.serverIp}/apps/android/MyApps/eventsNotify/"
         //this is the url for saveDeviceToken api
         var saveDeviceTokenUrl = "http://${Data.serverIp}/apps/android/MyApps/eventsNotify/android/apis/saveDeviceToken.php?deviceToken="
+        //events fetching api url
+        var getEventsUrl = "http://${Data.serverIp}/apps/android/MyApps/eventsNotify/android/apis/getEvents.php"
     }
 }
