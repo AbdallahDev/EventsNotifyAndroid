@@ -15,7 +15,8 @@
             android:id="@+id/tv_title_precedent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/row_tv_title_precedent" />
+            android:text="@string/row_tv_title_precedent"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -35,7 +36,8 @@
             android:id="@+id/tv_subject_precedent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/row_tv_subject_precedent" />
+            android:text="@string/row_tv_subject_precedent"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_subject"
