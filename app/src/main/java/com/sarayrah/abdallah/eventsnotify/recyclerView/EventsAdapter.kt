@@ -22,9 +22,9 @@ class EventsAdapter(private val list: ArrayList<EventsDataSet>) :
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.itemView.tv_title.text = list[p1].eventTitle
-        p0.itemView.tv_title.text = list[p1].eventTitle
-        p0.itemView.tv_title.text = list[p1].eventTitle
-        p0.itemView.tv_title.text = list[p1].eventTitle
+        p0.itemView.tv_title.text = list[p1].eventSubject
+        p0.itemView.tv_title.text = list[p1].eventDate
+        p0.itemView.tv_title.text = list[p1].eventTime
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
