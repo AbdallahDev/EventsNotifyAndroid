@@ -1,5 +1,6 @@
 package com.sarayrah.abdallah.eventsnotify
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_event_details.*
@@ -14,5 +15,11 @@ class EventDetails : AppCompatActivity() {
         tv_body.text = intent.getStringExtra("body")
         tv_date.text = intent.getStringExtra("date")
         tv_time.text = intent.getStringExtra("time")
+
+        //by this button i'll navigate to the activity that view all the events.
+        btn_all_events.setOnClickListener {
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
+        }
     }
 }
