@@ -11,6 +11,7 @@ class EventDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
+        setSupportActionBar(my_toolbar)
 
         tv_title.text = Html.fromHtml(intent.getStringExtra("title"))
         tv_body.text = Html.fromHtml(intent.getStringExtra("body"))
