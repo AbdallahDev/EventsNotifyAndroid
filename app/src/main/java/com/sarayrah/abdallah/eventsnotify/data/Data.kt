@@ -7,7 +7,7 @@ class Data {
          development, coz i work locally and on a real server
          local ip: 10.153.131.72
          real server ip: 193.188.88.148*/
-        val serverIp = "10.153.131.72"
+        const val serverIp = "10.153.131.72"
         //bellow are variables to store url, so i don't need to edit it everywhere in the code
         //this the url for the base web system
         var baseUrl = "http://${Data.serverIp}/apps/MyApps/events"
