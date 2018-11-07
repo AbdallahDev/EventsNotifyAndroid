@@ -1,6 +1,7 @@
 package com.sarayrah.abdallah.eventsnotify.recyclerView
 
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +23,9 @@ class EventsAdapter(private val list: ArrayList<EventsDataSet>) :
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.itemView.tv_title.text = list[p1].eventTitle
-        p0.itemView.tv_subject.text = list[p1].eventSubject
-        p0.itemView.tv_date.text = list[p1].eventDate
-        p0.itemView.tv_time.text = list[p1].eventTime
+        p0.itemView.tv_subject.text = Html.fromHtml(list[p1].eventSubject)
+        p0.itemView.tv_date.text = Html.fromHtml(list[p1].eventDate)
+        p0.itemView.tv_time.text = Html.fromHtml(list[p1].eventTime)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
