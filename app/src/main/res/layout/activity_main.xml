@@ -45,6 +45,11 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
+    <Spinner
+        android:id="@+id/spinner_committees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_events"
         android:layout_width="match_parent"
