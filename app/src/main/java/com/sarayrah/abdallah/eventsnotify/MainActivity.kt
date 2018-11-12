@@ -111,10 +111,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //from the spinner
     private fun eventsViewing(committee: CommitteesDataSet =
                                       CommitteesDataSet(0, "جميع اللجان")) {
+
+        //progress dialog code
         val pd = ProgressDialog(this)
         pd.setMessage("يرجى الانتظار...")
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         pd.show()
+
         //volley code
         val url = Data.getEventsUrl + committee.id
         val queue = Volley.newRequestQueue(this)
@@ -178,10 +181,4 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         })
         queue.add(jsonArrayRequest)
     }
-
-    //progress dialog fun creation
-//    private fun progressDialog() {
-//        pd.setMessage("يرجى الانتظار...")
-//        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-//    }
 }
