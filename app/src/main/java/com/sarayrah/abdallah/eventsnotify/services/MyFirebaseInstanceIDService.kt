@@ -1,6 +1,7 @@
 package com.sarayrah.abdallah.eventsnotify.services
 
 import android.util.Log
+import android.util.Log.*
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -28,9 +29,9 @@ class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
         val stringQueue = StringRequest(Request.Method.GET, url, Response.Listener {
             Toast.makeText(this, "تم تسجيلك لتلقي تنبيهات نشاطات المجلس",
                     Toast.LENGTH_LONG).show()
-            Log.wtf("fcm", "DeviceTokenSaved = $refreshedToken")
+            d("fcm", "DeviceTokenSaved = $refreshedToken")
         }, Response.ErrorListener { error ->
-            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            d("fcm", "instanceIdError" + error.message)
         })
         requestQueue.add(stringQueue)
     }

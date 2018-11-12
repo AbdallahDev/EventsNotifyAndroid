@@ -8,22 +8,28 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.util.Log.*
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.iid.FirebaseInstanceId
 import com.sarayrah.abdallah.eventsnotify.data.Data
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
+import com.sarayrah.abdallah.eventsnotify.spinner.CommitteesDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val eventsList = ArrayList<EventsDataSet>()
+    private val committeesList = ArrayList<CommitteesDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +42,11 @@ class MainActivity : AppCompatActivity() {
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
 
-        //call the function that view the data
-        eventsViewing()
+        //create notification channel
+        createNotificationChannel()
+
+        //call the method to fill the spinner.
+        spinnerFil()
     }
 
     override fun onResume() {
@@ -48,6 +57,15 @@ class MainActivity : AppCompatActivity() {
 
         //here i check for the googlePlayService availability, coz the can't work without it.
         googlePlayServicesAvailable()
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        val committee = p0?.selectedItem as CommitteesDataSet
+        eventsViewing(committee)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     //this fun to check for the googlePlayService availability, coz the can't work without it.
@@ -76,9 +94,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //this fun to pint device instanceID in the LOG
+    //this fun to print device instanceID in the LOG
     private fun logPrint() {
-        Log.wtf("fcm", " ${FirebaseInstanceId.getInstance().token}")
+        d("fcm", " ${FirebaseInstanceId.getInstance().token}")
     }
 
     //recyclerView inflation code
@@ -88,23 +106,58 @@ class MainActivity : AppCompatActivity() {
         rv_events.adapter = EventsAdapter(eventsList)
     }
 
-    //fill list for the recyclerView
-    private fun eventsViewing() {
+    //fill list for the recyclerView, and i've defined the default object value coz i want to get
+    //all the events when the committee not chosen, like on activity onCreate or nothing been chosen
+    //from the spinner
+    private fun eventsViewing(committee: CommitteesDataSet =
+                                      CommitteesDataSet(0, "جميع اللجان")) {
         //volley code
+        val url = Data.getEventsUrl + committee.id
         val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getEventsUrl
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url
                 , null,
                 Response.Listener { response ->
-                    Log.wtf("fcm", "response: " + response.toString())
-                    for (i in 0 until response.length()) {
-                        eventsList.add(EventsDataSet(
-                                response.getJSONObject(i).getString("committee_name"),
-                                response.getJSONObject(i).getString("subject"),
-                                response.getJSONObject(i).getString("event_date"),
-                                response.getJSONObject(i).getString("time")))
+                    d("fcm", "responseEvents: " + response.toString())
+                    eventsList.clear()
+                    if (response.length() != 0) {
+                        for (i in 0 until response.length()) {
+                            eventsList.add(EventsDataSet(
+                                    response.getJSONObject(i).getString("committee_name"),
+                                    response.getJSONObject(i).getString("subject"),
+                                    response.getJSONObject(i).getString("event_date"),
+                                    response.getJSONObject(i).getString("time")))
+                        }
+                    } else {
+                        Toast.makeText(this, "لا يوجد نشاطات لهذه اللجنة", Toast.LENGTH_LONG).show()
                     }
                     recyclerViewInflation()
                 }, Response.ErrorListener {
+        })
+        queue.add(jsonArrayRequest)
+    }
+
+    //fill spinner method
+    private fun spinnerFil() {
+        //this is the first element in the spinner
+        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+        //volley code
+        val queue = Volley.newRequestQueue(this)
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
+                , null,
+                Response.Listener { response ->
+                    //                    Log.wtf("fcm", "responseCommitteesList: " + response.toString())
+                    for (i in 0 until response.length()) {
+                        committeesList.add(CommitteesDataSet(
+                                response.getJSONObject(i).getInt("committee_id"),
+                                response.getJSONObject(i).getString("committee_name")))
+                    }
+                    val spinnerAdapter = ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, committeesList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner_committees.adapter = spinnerAdapter
+                    spinner_committees.onItemSelectedListener = this
+                }, Response.ErrorListener { error ->
+            d("fcm", "responseCommitteesError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
     }
