@@ -2,6 +2,7 @@ package com.sarayrah.abdallah.eventsnotify
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -110,12 +111,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //from the spinner
     private fun eventsViewing(committee: CommitteesDataSet =
                                       CommitteesDataSet(0, "جميع اللجان")) {
+        val pd = ProgressDialog(this)
+        pd.setMessage("يرجى الانتظار...")
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        pd.show()
         //volley code
         val url = Data.getEventsUrl + committee.id
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url
                 , null,
                 Response.Listener { response ->
+                    //i'll hide the loading dialog
+                    pd.hide()
                     d("fcm", "responseEvents: " + response.toString())
                     eventsList.clear()
                     if (response.length() != 0) {
@@ -130,7 +137,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         Toast.makeText(this, "لا يوجد نشاطات لهذه اللجنة", Toast.LENGTH_LONG).show()
                     }
                     recyclerViewInflation()
-                }, Response.ErrorListener {
+                }, Response.ErrorListener { error ->
+            //i'll hide the loading dialog
+            pd.hide()
+            d("fcm", "responseEventsError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
     }
@@ -139,12 +149,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun spinnerFil() {
         //this is the first element in the spinner
         committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+
+        //progress dialog code
+        val pd = ProgressDialog(this)
+        pd.setMessage("يرجى الانتظار...")
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        pd.show()
+
         //volley code
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
                 , null,
                 Response.Listener { response ->
-                    //                    Log.wtf("fcm", "responseCommitteesList: " + response.toString())
+                    pd.hide()
                     for (i in 0 until response.length()) {
                         committeesList.add(CommitteesDataSet(
                                 response.getJSONObject(i).getInt("committee_id"),
@@ -156,8 +173,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     spinner_committees.adapter = spinnerAdapter
                     spinner_committees.onItemSelectedListener = this
                 }, Response.ErrorListener { error ->
+            pd.hide()
             d("fcm", "responseCommitteesError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
     }
+
+    //progress dialog fun creation
+//    private fun progressDialog() {
+//        pd.setMessage("يرجى الانتظار...")
+//        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+//    }
 }
