@@ -20,8 +20,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         notificationBuilder(p0?.data?.get("title")!!, p0.data?.get("body")!!,
                 p0.data?.get("date")!!, p0.data?.get("time")!!)
-
-        wakeUpScreen()
     }
 
     //this function to build the notification
@@ -60,6 +58,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    //i'll not use this function for now coz i think the best practice in android is not awaking the
+    //screen when notification is received, for example the whatsApp do the same
     @SuppressLint("InvalidWakeLockTag")
     private fun wakeUpScreen() {
         //wake up lock screen
