@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             //here i'll check if the value of the entity name is the committee name
                             //from the dropdown menu
                             //or the event_entity_name that typed in the website app text box
-                            if (response.getJSONObject(i).getString("event_entity_name").isEmpty()) {
+                            if (response.getJSONObject(i).getString("event_entity_name").isNullOrEmpty()) {
                                 //here this means the value of the entity_name is from the committee_name
                                 //coz the value of the event_entity_name is empty.
                                 eventEntity = response.getJSONObject(i).getString("committee_name")
