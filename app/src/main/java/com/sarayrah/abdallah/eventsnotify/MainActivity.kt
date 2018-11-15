@@ -130,14 +130,30 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     eventsList.clear()
                     if (response.length() != 0) {
                         for (i in 0 until response.length()) {
+                            //this variable to store the value of the entity name from the database
+                            //coz it could contain the committee_name value or the event_entity_name value
+                            var eventEntity = ""
+                            //here i'll check if the value of the entity name is the committee name
+                            //from the dropdown menu
+                            //or the event_entity_name that typed in the website app text box
+                            if (response.getJSONObject(i).getString("event_entity_name").isEmpty()) {
+                                //here this means the value of the entity_name is from the committee_name
+                                //coz the value of the event_entity_name is empty.
+                                eventEntity = response.getJSONObject(i).getString("committee_name")
+                            } else {
+                                //here this means the value of the entity_name is from the event_entity_name
+                                //coz the value of the event_entity_name is not empty, so that means
+                                //the value of the committee_name is exist.
+                                eventEntity = response.getJSONObject(i).getString("event_entity_name")
+                            }
                             eventsList.add(EventsDataSet(
-                                    response.getJSONObject(i).getString("committee_name"),
+                                    eventEntity,
                                     response.getJSONObject(i).getString("subject"),
                                     response.getJSONObject(i).getString("event_date"),
                                     response.getJSONObject(i).getString("time")))
                         }
                     } else {
-                        Toast.makeText(this, "لا يوجد نشاطات لهذه اللجنة", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "لا يوجد نشاطات", Toast.LENGTH_LONG).show()
                     }
                     recyclerViewInflation()
                 }, Response.ErrorListener { error ->
