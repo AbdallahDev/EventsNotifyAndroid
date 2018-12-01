@@ -164,6 +164,40 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         queue.add(jsonArrayRequest)
     }
 
+    //fill the categories spinner
+    private fun categoriesSpinnerFill() {
+        //this is the first element in the spinner, it's needed as the default value
+        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+
+        //progress dialog code
+        val pd = ProgressDialog(this)
+        pd.setMessage("يرجى الانتظار...")
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        pd.show()
+
+        //volley code
+        val queue = Volley.newRequestQueue(this)
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
+                , null,
+                Response.Listener { response ->
+                    pd.hide()
+                    for (i in 0 until response.length()) {
+                        committeesList.add(CommitteesDataSet(
+                                response.getJSONObject(i).getInt("committee_id"),
+                                response.getJSONObject(i).getString("committee_name")))
+                    }
+                    val spinnerAdapter = ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, committeesList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner_committees.adapter = spinnerAdapter
+                    spinner_committees.onItemSelectedListener = this
+                }, Response.ErrorListener { error ->
+            pd.hide()
+            d("fcm", "responseCommitteesError: ${error.message}")
+        })
+        queue.add(jsonArrayRequest)
+    }
+
     //fill spinner method
     private fun spinnerFil() {
         //this is the first element in the spinner
