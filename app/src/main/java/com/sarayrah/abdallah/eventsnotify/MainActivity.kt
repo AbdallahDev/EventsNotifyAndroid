@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         //create notification channel
         createNotificationChannel()
 
+        //call the function that fill the categories spinner
+        categoriesSpinnerFill()
+
         //call the method to fill the spinner.
         spinnerFil()
     }
