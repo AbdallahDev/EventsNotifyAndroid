@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //fill the categories spinner
     private fun categoriesSpinnerFill() {
         //this is the first element in the spinner, it's needed as the default value
-        committeesList.add(CommitteesDataSet(0, "جميع الفئات"))
+        categoriesList.add(CommitteesDataSet(0, "جميع الفئات"))
 
         //progress dialog code
         val pd = ProgressDialog(this)
@@ -186,18 +186,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Response.Listener { response ->
                     pd.hide()
                     for (i in 0 until response.length()) {
-                        committeesList.add(CommitteesDataSet(
-                                response.getJSONObject(i).getInt("committee_id"),
-                                response.getJSONObject(i).getString("committee_name")))
+                        categoriesList.add(CommitteesDataSet(
+                                response.getJSONObject(i).getInt("event_entity_category_id"),
+                                response.getJSONObject(i).getString("event_entity_category_name")))
                     }
                     val spinnerAdapter = ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, committeesList)
+                            android.R.layout.simple_spinner_item, categoriesList)
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinner_committees.adapter = spinnerAdapter
-                    spinner_committees.onItemSelectedListener = this
+                    spinner_categories.adapter = spinnerAdapter
+                    spinner_categories.onItemSelectedListener = this
                 }, Response.ErrorListener { error ->
             pd.hide()
-            d("fcm", "responseCommitteesError: ${error.message}")
+            d("fcm", "responseCategoriesError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
     }
