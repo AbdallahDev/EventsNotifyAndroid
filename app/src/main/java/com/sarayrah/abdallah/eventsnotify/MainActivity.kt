@@ -4,10 +4,12 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.ProgressDialog
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.util.Log.d
 import android.view.View
 import android.widget.AdapterView
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         categoriesSpinnerFill()
 
         //call the method to fill the spinner.
-        spinnerFil()
+        entitiesSpinnerFill()
     }
 
     override fun onResume() {
@@ -67,8 +69,21 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val committee = p0?.selectedItem as CommitteesDataSet
+        //here i'll check which spinner choosed depended on the id
+        when (p0?.id) {
+            //this is the categories spinner id
+            2131165316 -> {
+                when (p2) {
+                    0 -> spinner_committees.visibility = View.GONE
+                    else -> spinner_committees.visibility = View.VISIBLE
+                }
+            }
+            //this is the entities spinner id
+            2131165317 -> {
+                val committee = p0?.selectedItem as CommitteesDataSet
 //        eventsViewing(committee)
+            }
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -206,7 +221,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     //fill spinner method
-    private fun spinnerFil() {
+    private fun entitiesSpinnerFill() {
         //this is the first element in the spinner
         committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
 
