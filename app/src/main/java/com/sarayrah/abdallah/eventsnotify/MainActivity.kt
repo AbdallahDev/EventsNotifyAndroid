@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         pd.show()
 
-        //volley code
+        //volley code to get all the categories from the api
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
                 , null,
