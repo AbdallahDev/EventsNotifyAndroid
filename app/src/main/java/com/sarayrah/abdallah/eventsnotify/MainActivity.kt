@@ -29,7 +29,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val eventsList = ArrayList<EventsDataSet>()
+    //this var to hold the entities data from the api json
     private val committeesList = ArrayList<CommitteesDataSet>()
+    //this var to hold the entity categories data from the api json
+    private val categoriesList = ArrayList<CommitteesDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,7 +180,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         //volley code to get all the categories from the api
         val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCategoriesUrl
                 , null,
                 Response.Listener { response ->
                     pd.hide()
