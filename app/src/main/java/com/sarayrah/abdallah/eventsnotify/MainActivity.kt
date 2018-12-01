@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //fill the categories spinner
     private fun categoriesSpinnerFill() {
         //this is the first element in the spinner, it's needed as the default value
-        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+        committeesList.add(CommitteesDataSet(0, "جميع الفئات"))
 
         //progress dialog code
         val pd = ProgressDialog(this)
