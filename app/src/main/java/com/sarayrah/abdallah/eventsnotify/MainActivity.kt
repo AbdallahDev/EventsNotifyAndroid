@@ -28,10 +28,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
+    //this var to hold the events data
     private val eventsList = ArrayList<EventsDataSet>()
-    //this var to hold the entities data from the api json
+    //this var to hold the entities data
     private val committeesList = ArrayList<CommitteesDataSet>()
-    //this var to hold the entity categories data from the api json
+    //this var to hold the entity categories
     private val categoriesList = ArrayList<CommitteesDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
