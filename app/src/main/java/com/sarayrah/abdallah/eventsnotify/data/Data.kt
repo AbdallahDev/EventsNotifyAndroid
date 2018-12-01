@@ -17,5 +17,7 @@ class Data {
         var getEventsUrl = "$baseUrl/apis/get_events.php?committeeId="
         //committees fetching api url
         var getCommitteesUrl = "$baseUrl/apis/get_committees.php"
+        //entity categories fetching api url
+        var getCategoriesUrl = "$baseUrl/apis/get_categories.php"
     }
 }
