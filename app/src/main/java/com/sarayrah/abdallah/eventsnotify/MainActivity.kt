@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
             //this is the entities spinner id
             2131165317 -> {
-                val committee = p0?.selectedItem as CommitteesDataSet
-//        eventsViewing(committee)
+                val entity = p0?.selectedItem as CommitteesDataSet
+                eventsViewing(entity)
             }
         }
     }
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //all the events when the committee not chosen, like on activity onCreate or nothing been chosen
     //from the spinner
     private fun eventsViewing(committee: CommitteesDataSet =
-                                      CommitteesDataSet(0, "جميع اللجان")) {
+                                      CommitteesDataSet(0, "جميع النشاطات")) {
 
         //progress dialog code
         val pd = ProgressDialog(this)
