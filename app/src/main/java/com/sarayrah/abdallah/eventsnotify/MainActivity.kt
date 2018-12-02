@@ -4,12 +4,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.ProgressDialog
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.util.Log.d
 import android.view.View
 import android.widget.AdapterView
@@ -174,7 +172,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                                     response.getJSONObject(i).getString("time")))
                         }
                     } else {
-                        Toast.makeText(this, "لا يوجد نشاطات", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "لا يوجد نشاطات", Toast.LENGTH_SHORT).show()
                     }
                     recyclerViewInflation()
                 }, Response.ErrorListener { error ->
