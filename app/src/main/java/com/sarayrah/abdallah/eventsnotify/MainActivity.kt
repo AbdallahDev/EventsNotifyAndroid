@@ -74,13 +74,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             //this is the categories spinner id
             2131165316 -> {
                 when (p2) {
-                    0 -> spinner_committees.visibility = View.GONE
-                    else -> spinner_committees.visibility = View.VISIBLE
+                    0 -> {
+                        spinner_committees.visibility = View.GONE
+                        eventsViewing()
+                    }
+                    else -> {
+                        spinner_committees.visibility = View.VISIBLE
+                    }
                 }
             }
             //this is the entities spinner id
             2131165317 -> {
-                val entity = p0?.selectedItem as CommitteesDataSet
+                val entity = p0.selectedItem as CommitteesDataSet
                 eventsViewing(entity)
             }
         }
@@ -155,17 +160,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             //this variable to store the value of the entity name from the database
                             //coz it could contain the committee_name value or the event_entity_name value
                             var eventEntity = ""
-                            //here i'll check if the value of the entity name is the committee name
-                            //from the dropdown menu
-                            //or the event_entity_name that typed in the website app text box
-                            if (response.getJSONObject(i).getString("event_entity_name").isNullOrEmpty()) {
+                            //here i'll check if the value of the entity name is sat from
+                            // the event entity name record, to make it the event title
+                            if (!response.getJSONObject(i).getString("event_entity_name").isNullOrEmpty()) {
                                 //here this means the value of the entity_name is from the committee_name
                                 //coz the value of the event_entity_name is empty.
-                                eventEntity = response.getJSONObject(i).getString("committee_name")
-                            } else {
-                                //here this means the value of the entity_name is from the event_entity_name
-                                //coz the value of the event_entity_name is not empty, so that means
-                                //the value of the committee_name is exist.
                                 eventEntity = response.getJSONObject(i).getString("event_entity_name")
                             }
                             eventsList.add(EventsDataSet(
