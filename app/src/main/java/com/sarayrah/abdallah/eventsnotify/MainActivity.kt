@@ -157,14 +157,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         for (i in 0 until response.length()) {
                             //this variable to store the value of the entity name from the database
                             //coz it could contain the committee_name value or the event_entity_name value
-                            var eventEntity = ""
+                            val eventEntity: String =
+                                    if (!response.getJSONObject(i).getString("event_entity_name").isNullOrEmpty()) {
+                                        //here this means the value of the entity_name is from the committee_name
+                                        //coz the value of the event_entity_name is empty.
+                                        response.getJSONObject(i).getString("event_entity_name")
+                                    } else {
+                                        response.getJSONObject(i).getString("entity_name")
+                                    }
                             //here i'll check if the value of the entity name is sat from
                             // the event entity name record, to make it the event title
-                            if (!response.getJSONObject(i).getString("event_entity_name").isNullOrEmpty()) {
-                                //here this means the value of the entity_name is from the committee_name
-                                //coz the value of the event_entity_name is empty.
-                                eventEntity = response.getJSONObject(i).getString("event_entity_name")
-                            }
                             eventsList.add(EventsDataSet(
                                     eventEntity,
                                     response.getJSONObject(i).getString("subject"),
