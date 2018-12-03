@@ -22,6 +22,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.sarayrah.abdallah.eventsnotify.data.Data
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsAdapter
 import com.sarayrah.abdallah.eventsnotify.recyclerView.EventsDataSet
+import com.sarayrah.abdallah.eventsnotify.spinner.CategoriesDataSet
 import com.sarayrah.abdallah.eventsnotify.spinner.CommitteesDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //this var to hold the entities data
     private val committeesList = ArrayList<CommitteesDataSet>()
     //this var to hold the entity categories
-    private val categoriesList = ArrayList<CommitteesDataSet>()
+    private val categoriesList = ArrayList<CategoriesDataSet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -190,7 +191,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     //fill the categories spinner
     private fun categoriesSpinnerFill() {
         //this is the first element in the spinner, it's needed as the default value
-        categoriesList.add(CommitteesDataSet(0, "جميع الفئات"))
+        categoriesList.add(CategoriesDataSet(0, "جميع الفئات"))
 
         //progress dialog code
         val pd = ProgressDialog(this)
@@ -205,7 +206,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Response.Listener { response ->
                     pd.hide()
                     for (i in 0 until response.length()) {
-                        categoriesList.add(CommitteesDataSet(
+                        categoriesList.add(CategoriesDataSet(
                                 response.getJSONObject(i).getInt("event_entity_category_id"),
                                 response.getJSONObject(i).getString("event_entity_category_name")))
                     }
