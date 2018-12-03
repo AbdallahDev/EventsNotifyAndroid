@@ -26,7 +26,6 @@ import com.sarayrah.abdallah.eventsnotify.spinner.CategoriesDataSet
 import com.sarayrah.abdallah.eventsnotify.spinner.CommitteesDataSet
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     //this var to hold the events data
