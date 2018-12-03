@@ -69,12 +69,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             //this is the categories spinner id
             2131165316 -> {
                 when (p2) {
+                    //here this choice represent the default first choice
                     0 -> {
                         //her i'll hide the entities spinner
                         spinner_committees.visibility = View.GONE
                         //then here i'll view all the events coz no specific entity chosen
                         eventsViewing()
                     }
+                    //here this choice represent the all other choices
                     else -> {
                         //i declared this variable to get the selected item as the CategoriesDataSet
                         //so i can get the id for the selected category form the db.
@@ -169,44 +171,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         queue.add(jsonArrayRequest)
     }
 
-    //this fun to check for the googlePlayService availability, coz the can't work without it.
-    private fun googlePlayServicesAvailable() {
-        GoogleApiAvailability.getInstance()
-                .makeGooglePlayServicesAvailable(this)
-    }
-
-    //this fun to create notification channel on android oreo and higher.
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.channel_name)
-            val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(
-                    resources.getString(R.string.default_notification_channel_id), name, importance)
-                    .apply {
-                        description = descriptionText
-                    }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    //this fun to print device instanceID in the LOG
-    private fun logPrint() {
-        d("fcm", " ${FirebaseInstanceId.getInstance().token}")
-    }
-
-    //recyclerView inflation code
-    private fun recyclerViewInflation() {
-        rv_events.hasFixedSize()
-        rv_events.layoutManager = LinearLayoutManager(this)
-        rv_events.adapter = EventsAdapter(eventsList)
-    }
-
     //fill list for the recyclerView, and i've defined the default object value coz i want to get
     //all the events when the committee not chosen, like on activity onCreate or nothing been chosen
     //from the spinner
@@ -259,5 +223,43 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             d("fcm", "responseEventsError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
+    }
+
+    //recyclerView inflation code
+    private fun recyclerViewInflation() {
+        rv_events.hasFixedSize()
+        rv_events.layoutManager = LinearLayoutManager(this)
+        rv_events.adapter = EventsAdapter(eventsList)
+    }
+
+    //this fun to check for the googlePlayService availability, coz the can't work without it.
+    private fun googlePlayServicesAvailable() {
+        GoogleApiAvailability.getInstance()
+                .makeGooglePlayServicesAvailable(this)
+    }
+
+    //this fun to create notification channel on android oreo and higher.
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(
+                    resources.getString(R.string.default_notification_channel_id), name, importance)
+                    .apply {
+                        description = descriptionText
+                    }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    //this fun to print device instanceID in the LOG
+    private fun logPrint() {
+        d("fcm", " ${FirebaseInstanceId.getInstance().token}")
     }
 }
