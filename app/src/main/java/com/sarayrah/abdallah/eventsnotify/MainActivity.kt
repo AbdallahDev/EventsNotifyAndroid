@@ -96,6 +96,74 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    //fill the categories spinner
+    private fun categoriesSpinnerFill() {
+        //this is the first element in the spinner, it's needed as the default value
+        categoriesList.add(CategoriesDataSet(0, "جميع الفئات"))
+
+        //progress dialog code
+        val pd = ProgressDialog(this)
+        pd.setMessage("يرجى الانتظار...")
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        pd.show()
+
+        //volley code to get all the categories from the api
+        val queue = Volley.newRequestQueue(this)
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCategoriesUrl
+                , null,
+                Response.Listener { response ->
+                    pd.hide()
+                    for (i in 0 until response.length()) {
+                        categoriesList.add(CategoriesDataSet(
+                                response.getJSONObject(i).getInt("event_entity_category_id"),
+                                response.getJSONObject(i).getString("event_entity_category_name")))
+                    }
+                    val spinnerAdapter = ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, categoriesList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner_categories.adapter = spinnerAdapter
+                    spinner_categories.onItemSelectedListener = this
+                }, Response.ErrorListener { error ->
+            pd.hide()
+            d("fcm", "responseCategoriesError: ${error.message}")
+        })
+        queue.add(jsonArrayRequest)
+    }
+
+    //fill spinner method
+    private fun entitiesSpinnerFill() {
+        //this is the first element in the spinner
+        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+
+        //progress dialog code
+        val pd = ProgressDialog(this)
+        pd.setMessage("يرجى الانتظار...")
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        pd.show()
+
+        //volley code
+        val queue = Volley.newRequestQueue(this)
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
+                , null,
+                Response.Listener { response ->
+                    pd.hide()
+                    for (i in 0 until response.length()) {
+                        committeesList.add(CommitteesDataSet(
+                                response.getJSONObject(i).getInt("committee_id"),
+                                response.getJSONObject(i).getString("committee_name")))
+                    }
+                    val spinnerAdapter = ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, committeesList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner_committees.adapter = spinnerAdapter
+                    spinner_committees.onItemSelectedListener = this
+                }, Response.ErrorListener { error ->
+            pd.hide()
+            d("fcm", "responseCommitteesError: ${error.message}")
+        })
+        queue.add(jsonArrayRequest)
+    }
+
     //this fun to check for the googlePlayService availability, coz the can't work without it.
     private fun googlePlayServicesAvailable() {
         GoogleApiAvailability.getInstance()
@@ -184,74 +252,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             //i'll hide the loading dialog
             pd.hide()
             d("fcm", "responseEventsError: ${error.message}")
-        })
-        queue.add(jsonArrayRequest)
-    }
-
-    //fill the categories spinner
-    private fun categoriesSpinnerFill() {
-        //this is the first element in the spinner, it's needed as the default value
-        categoriesList.add(CategoriesDataSet(0, "جميع الفئات"))
-
-        //progress dialog code
-        val pd = ProgressDialog(this)
-        pd.setMessage("يرجى الانتظار...")
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        pd.show()
-
-        //volley code to get all the categories from the api
-        val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCategoriesUrl
-                , null,
-                Response.Listener { response ->
-                    pd.hide()
-                    for (i in 0 until response.length()) {
-                        categoriesList.add(CategoriesDataSet(
-                                response.getJSONObject(i).getInt("event_entity_category_id"),
-                                response.getJSONObject(i).getString("event_entity_category_name")))
-                    }
-                    val spinnerAdapter = ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, categoriesList)
-                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinner_categories.adapter = spinnerAdapter
-                    spinner_categories.onItemSelectedListener = this
-                }, Response.ErrorListener { error ->
-            pd.hide()
-            d("fcm", "responseCategoriesError: ${error.message}")
-        })
-        queue.add(jsonArrayRequest)
-    }
-
-    //fill spinner method
-    private fun entitiesSpinnerFill() {
-        //this is the first element in the spinner
-        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
-
-        //progress dialog code
-        val pd = ProgressDialog(this)
-        pd.setMessage("يرجى الانتظار...")
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        pd.show()
-
-        //volley code
-        val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
-                , null,
-                Response.Listener { response ->
-                    pd.hide()
-                    for (i in 0 until response.length()) {
-                        committeesList.add(CommitteesDataSet(
-                                response.getJSONObject(i).getInt("committee_id"),
-                                response.getJSONObject(i).getString("committee_name")))
-                    }
-                    val spinnerAdapter = ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, committeesList)
-                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinner_committees.adapter = spinnerAdapter
-                    spinner_committees.onItemSelectedListener = this
-                }, Response.ErrorListener { error ->
-            pd.hide()
-            d("fcm", "responseCommitteesError: ${error.message}")
         })
         queue.add(jsonArrayRequest)
     }
