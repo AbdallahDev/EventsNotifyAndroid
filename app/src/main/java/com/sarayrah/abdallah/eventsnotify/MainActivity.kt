@@ -73,7 +73,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             2131165316 -> {
                 when (p2) {
                     0 -> {
+                        //her i'll hide the entities spinner
                         spinner_committees.visibility = View.GONE
+                        //then here i'll view all the events coz no specific entity chosen
                         eventsViewing()
                     }
                     else -> {
