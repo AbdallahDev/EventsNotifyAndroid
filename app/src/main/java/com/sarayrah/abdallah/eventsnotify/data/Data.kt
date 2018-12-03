@@ -15,8 +15,8 @@ class Data {
         var saveDeviceTokenUrl = "$baseUrl/apis/save_device_token.php?deviceToken="
         //events fetching api url
         var getEventsUrl = "$baseUrl/apis/get_events.php?committeeId="
-        //committees fetching api url
-        var getCommitteesUrl = "$baseUrl/apis/get_committees.php"
+        //entities fetching api url
+        var getCommitteesUrl = "$baseUrl/apis/get_committees.php?category="
         //entity categories fetching api url
         var getCategoriesUrl = "$baseUrl/apis/get_categories.php"
     }

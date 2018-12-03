@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         //call the function that fill the categories spinner
         categoriesSpinnerFill()
-
-        //call the method to fill the spinner.
-        entitiesSpinnerFill()
     }
 
     override fun onResume() {
@@ -130,10 +127,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         queue.add(jsonArrayRequest)
     }
 
-    //fill spinner method
-    private fun entitiesSpinnerFill() {
-        //this is the first element in the spinner
-        committeesList.add(CommitteesDataSet(0, "جميع اللجان"))
+    //this method fill the entities spinner based on the chosen entities category
+    private fun entitiesSpinnerFill(category: Int) {
+        //this is the first element in the spinner, i use it as the default choice
+        committeesList.add(CommitteesDataSet(0, "جميع الجهات"))
 
         //progress dialog code
         val pd = ProgressDialog(this)
@@ -142,8 +139,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pd.show()
 
         //volley code
+        val url = Data.getCommitteesUrl + category
         val queue = Volley.newRequestQueue(this)
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, Data.getCommitteesUrl
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url
                 , null,
                 Response.Listener { response ->
                     pd.hide()
