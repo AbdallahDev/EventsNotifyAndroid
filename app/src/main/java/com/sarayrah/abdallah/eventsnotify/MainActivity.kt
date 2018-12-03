@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         eventsViewing()
                     }
                     else -> {
+                        //i declared this variable to get the selected item as the CategoriesDataSet
+                        //so i can get the id for the selected category form the db.
+                        val category = p0.selectedItem as CategoriesDataSet
+                        //this val store the category id from the db
+                        val categoryId = category.id
+                        entitiesSpinnerFill(categoryId)
                         spinner_committees.visibility = View.VISIBLE
                     }
                 }
@@ -128,7 +134,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     //this method fill the entities spinner based on the chosen entities category
-    private fun entitiesSpinnerFill(category: Int) {
+    private fun entitiesSpinnerFill(categoryId: Int) {
+        //here i'll clear the list so it dosen't stack the entities in the spinner every time it filled
+        committeesList.clear()
         //this is the first element in the spinner, i use it as the default choice
         committeesList.add(CommitteesDataSet(0, "جميع الجهات"))
 
@@ -139,7 +147,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pd.show()
 
         //volley code
-        val url = Data.getCommitteesUrl + category
+        val url = Data.getCommitteesUrl + categoryId
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url
                 , null,
