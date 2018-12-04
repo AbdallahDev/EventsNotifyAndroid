@@ -45,12 +45,26 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
+    <!--this spinner to view the entity categories-->
+    <Spinner
+        android:id="@+id/spinner_categories"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:popupBackground="@color/colorLight" />
+
+    <!--this spinner to view the entities-->
     <Spinner
         android:id="@+id/spinner_committees"
         style="@style/spinner_style"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
+        android:visibility="gone"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"

@@ -16,7 +16,7 @@
     <string name="btn_all_events">جميع النشاطات</string>
 
     //events details row for the recyclerView
-    <string name="row_tv_title_precedent">اللجنة:</string>
+    <string name="row_tv_title_precedent">جهة النشاط:</string>
     <string name="row_tv_title">العنوان</string>
     <string name="row_tv_subject_precedent">الموضوع:</string>
     <string name="row_tv_subject">الموضوع</string>
