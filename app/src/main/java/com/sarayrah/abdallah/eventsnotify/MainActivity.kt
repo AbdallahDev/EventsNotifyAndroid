@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val committeesList = ArrayList<CommitteesDataSet>()
     //this var to hold the entity categories
     private val categoriesList = ArrayList<CategoriesDataSet>()
+    //this var used to get the events for the specified category
+    private var categoryId: Int = 0
+    //this var used to get the events for the specified entity
+    private var entityId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,17 +85,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         //i declared this variable to get the selected item as the CategoriesDataSet
                         //so i can get the id for the selected category form the db.
                         val category = p0.selectedItem as CategoriesDataSet
-                        //this val store the category id from the db
-                        val categoryId = category.id
+                        //here i get the category id for the selected category then store it in
+                        // the global categoryId var to get the right events for that category
+                        categoryId = category.id
+                        //here i fill the entities spinner based on the chosen
                         entitiesSpinnerFill(categoryId)
                         spinner_committees.visibility = View.VISIBLE
+                        eventsViewing(categoryId, entityId)
                     }
                 }
             }
             //this is the entities spinner id
             2131165317 -> {
+                //this val to store the chosen entity
                 val entity = p0.selectedItem as CommitteesDataSet
-                eventsViewing(entity)
+                //this val to store the entity id for the selected entity to view it's related events
+                entityId = entity.id
+                eventsViewing(categoryId, entityId)
             }
         }
     }
@@ -171,11 +181,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         queue.add(jsonArrayRequest)
     }
 
-    //fill list for the recyclerView, and i've defined the default object value coz i want to get
-    //all the events when the committee not chosen, like on activity onCreate or nothing been chosen
-    //from the spinner
-    private fun eventsViewing(committee: CommitteesDataSet =
-                                      CommitteesDataSet(0, "جميع النشاطات")) {
+    //this fun fill the list for the recyclerView based on the selected category and entity,
+    // and when no category and entity chosen all the events will be fetched.
+    private fun eventsViewing(categoryId: Int = 0, entityId: Int = 0) {
 
         //progress dialog code
         val pd = ProgressDialog(this)
@@ -184,14 +192,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pd.show()
 
         //volley code
-        val url = Data.getEventsUrl + committee.id
+        //bellow i'll bind the category id and the entity id with the url to get the events for
+        // the specified category and entity
+        val url = Data.getEventsUrl + "categoryId=" + categoryId + "&" + "entityId=" + entityId
         val queue = Volley.newRequestQueue(this)
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url
                 , null,
                 Response.Listener { response ->
                     //i'll hide the loading dialog
                     pd.hide()
-                    d("fcm", "responseEvents: " + response.toString())
                     eventsList.clear()
                     if (response.length() != 0) {
                         for (i in 0 until response.length()) {

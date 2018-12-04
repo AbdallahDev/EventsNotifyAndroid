@@ -13,8 +13,9 @@ class Data {
         var baseUrl = "http://${Data.serverIp}/apps/MyApps/events/android"
         //this is the url for saveDeviceToken api
         var saveDeviceTokenUrl = "$baseUrl/apis/save_device_token.php?deviceToken="
-        //events fetching api url
-        var getEventsUrl = "$baseUrl/apis/get_events.php?committeeId="
+        //events fetching api url, needs to be concatenated with the 'categoryId&entityId' to get
+        // the right events for the specified category and entity
+        var getEventsUrl = "$baseUrl/apis/get_events.php?"
         //entities fetching api url
         var getCommitteesUrl = "$baseUrl/apis/get_committees.php?category="
         //entity categories fetching api url
