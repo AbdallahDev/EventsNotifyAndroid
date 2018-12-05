@@ -140,7 +140,8 @@
                 android:id="@+id/btn_all_events"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_all_events" />
+                android:text="@string/btn_all_events"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
